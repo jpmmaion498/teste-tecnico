@@ -1,0 +1,59 @@
+<UserControl x:Class="teste_tecnico.Views.PedidosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:teste_tecnico.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Selecione o Cliente:" FontWeight="Bold"/>
+            <ComboBox ItemsSource="{Binding Pessoas}" 
+                      SelectedItem="{Binding SelectedPessoa}"
+                      DisplayMemberPath="Nome" Margin="0,5,0,10"/>
+
+            <TextBlock Text="Adicionar Produto ao Pedido:" FontWeight="Bold"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Produtos}" 
+                          SelectedItem="{Binding SelectedProduto}"
+                          DisplayMemberPath="Nome" Margin="0,5,5,5"/>
+                <TextBox Grid.Column="1" Text="{Binding QuantidadeProduto, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="5"/>
+                <Button Grid.Column="2" Content="Adicionar" Command="{Binding AddProdutoCommand}" Padding="10,2"/>
+            </Grid>
+        </StackPanel>
+
+        <!-- Itens do Pedido -->
+        <GroupBox Header="Itens do Pedido" Grid.Row="1" Margin="0,10">
+            <DataGrid ItemsSource="{Binding NovoPedido.Itens}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Produto" Binding="{Binding NomeProduto}" Width="*"/>
+                    <DataGridTextColumn Header="Qtd." Binding="{Binding Quantidade}"/>
+                    <DataGridTextColumn Header="Valor Unit." Binding="{Binding ValorUnitario, StringFormat=C2}"/>
+                    <DataGridTextColumn Header="Subtotal" Binding="{Binding SubTotal, StringFormat=C2}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <!-- Finalização do Pedido -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Forma de Pagamento:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox ItemsSource="{Binding FormasPagamento}" 
+                      SelectedItem="{Binding NovoPedido.FormaPagamento}" Width="100" Margin="0,0,20,0"/>
+            <TextBlock Text="Valor Total:" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <TextBlock Text="{Binding NovoPedido.ValorTotal, StringFormat=C2}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center" Margin="0,0,20,0"/>
+            <Button Content="Finalizar Pedido" Command="{Binding FinalizarPedidoCommand}" Padding="10,5" FontWeight="Bold"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
