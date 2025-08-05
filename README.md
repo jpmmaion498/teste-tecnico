@@ -44,7 +44,7 @@ Para compilar e executar este projeto, você precisará de:
 
 1.  **Clone o repositório:**
     ```sh
-    git clone [<URL_DO_SEU_REPOSITORIO>](https://github.com/jpmmaion498/teste-tecnico.git)
+    git clone https://github.com/jpmmaion498/teste-tecnico.git
     ```
 2.  **Abra a solução:**
     - Navegue até a pasta do projeto e abra o arquivo `teste-tecnico.sln` com o Visual Studio.
